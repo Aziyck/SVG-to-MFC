@@ -1,0 +1,1902 @@
+CPen pen(PS_SOLID, 2, RGB(0, 0, 0));
+pDC->SelectObject(&pen);
+
+CBrush brush;
+brush.CreateStockObject(NULL_BRUSH);
+pDC->SelectObject(&brush);
+
+//------------------------------
+
+std::vector<std::vector<CPoint>> beziers = {
+	/* Path 0 */
+	{
+ 		CPoint( 375, 375 ),
+
+		CPoint( 353, 355 ), 
+		CPoint( 345, 325 ), 
+		CPoint( 349, 288 ),
+		CPoint( 352, 277 ), 
+		CPoint( 354, 267 ), 
+		CPoint( 354, 257 ),
+		CPoint( 368, 247 ), 
+		CPoint( 377, 257 ), 
+		CPoint( 378, 285 ),
+		CPoint( 378, 295 ), 
+		CPoint( 379, 305 ), 
+		CPoint( 381, 315 ),
+		CPoint( 385, 333 ), 
+		CPoint( 390, 349 ), 
+		CPoint( 396, 361 ),
+		CPoint( 398, 365 ), 
+		CPoint( 399, 369 ), 
+		CPoint( 399, 373 ),
+		CPoint( 398, 383 ), 
+		CPoint( 391, 384 ), 
+		CPoint( 380, 379 ),
+		CPoint( 378, 378 ), 
+		CPoint( 376, 377 ), 
+		CPoint( 375, 375 )
+	},
+
+	/* Path 1 */
+	{
+ 		CPoint( 135, 185 ),
+
+		CPoint( 135, 185 ), 
+		CPoint( 135, 186 ), 
+		CPoint( 134, 188 ),
+		CPoint( 135, 188 ), 
+		CPoint( 135, 187 ), 
+		CPoint( 135, 187 ),
+		CPoint( 135, 186 ), 
+		CPoint( 135, 186 ), 
+		CPoint( 135, 185 )
+	},
+	{
+ 		CPoint( 89, 224 ),
+
+		CPoint( 89, 222 ), 
+		CPoint( 89, 220 ), 
+		CPoint( 89, 218 ),
+		CPoint( 89, 220 ), 
+		CPoint( 89, 222 ), 
+		CPoint( 89, 223 ),
+		CPoint( 89, 224 ), 
+		CPoint( 89, 224 ), 
+		CPoint( 89, 224 ),
+		CPoint( 88, 229 ), 
+		CPoint( 88, 234 ), 
+		CPoint( 88, 239 )
+	},
+	{
+ 		CPoint( 88, 240 ),
+
+		CPoint( 88, 245 ), 
+		CPoint( 88, 250 ), 
+		CPoint( 89, 255 )
+	},
+	{
+ 		CPoint( 89, 255 ),
+
+		CPoint( 89, 256 ), 
+		CPoint( 89, 256 ), 
+		CPoint( 89, 256 ),
+		CPoint( 89, 256 ), 
+		CPoint( 89, 256 ), 
+		CPoint( 89, 255 ),
+		CPoint( 89, 255 ), 
+		CPoint( 88, 254 ), 
+		CPoint( 88, 254 ),
+		CPoint( 88, 244 ), 
+		CPoint( 88, 235 ), 
+		CPoint( 89, 224 ),
+		CPoint( 89, 224 ), 
+		CPoint( 89, 224 ), 
+		CPoint( 89, 224 )
+	},
+	{
+ 		CPoint( 89, 255 ),
+
+		CPoint( 88, 255 ), 
+		CPoint( 88, 254 ), 
+		CPoint( 88, 254 )
+	},	
+	{
+ 		CPoint( 89, 218 ),
+
+		CPoint( 91, 205 ), 
+		CPoint( 94, 192 ), 
+		CPoint( 100, 179 )
+	},
+
+	/* Path 2 */
+	{
+ 		CPoint( 355, 100 ),
+
+		CPoint( 333, 105 ), 
+		CPoint( 313, 114 ), 
+		CPoint( 296, 128 ),
+		CPoint( 292, 126 ), 
+		CPoint( 288, 124 ), 
+		CPoint( 284, 122 )
+	},
+	{
+ 		CPoint( 272, 122 ),
+
+		CPoint( 272, 122 ), 
+		CPoint( 250, 124 ), 
+		CPoint( 240, 131 ),
+		CPoint( 230, 138 ), 
+		CPoint( 220, 147 ), 
+		CPoint( 220, 147 ),
+		CPoint( 203, 120 ), 
+		CPoint( 152, 122 ), 
+		CPoint( 152, 122 ),
+		CPoint( 149, 124 ), 
+		CPoint( 148, 125 ), 
+		CPoint( 148, 125 )
+	},
+	{
+ 		CPoint( 100, 179 ),
+
+		CPoint( 95, 193 ), 
+		CPoint( 91, 206 ), 
+		CPoint( 89, 218 ),
+		CPoint( 89, 218 ), 
+		CPoint( 89, 218 ), 
+		CPoint( 89, 218 ),
+		CPoint( 89, 220 ), 
+		CPoint( 89, 221 ), 
+		CPoint( 88, 223 ),
+		CPoint( 89, 226 ), 
+		CPoint( 91, 229 ), 
+		CPoint( 92, 232 ),
+		CPoint( 92, 232 ), 
+		CPoint( 92, 232 ), 
+		CPoint( 92, 233 ),
+		CPoint( 114, 289 ), 
+		CPoint( 160, 337 ), 
+		CPoint( 232, 374 )
+	},
+	{
+ 		CPoint( 222, 376 ),
+
+		CPoint( 225, 376 ), 
+		CPoint( 229, 376 ), 
+		CPoint( 232, 376 )
+	},
+	{
+ 		CPoint( 232, 376 ),
+
+		CPoint( 233, 375 ), 
+		CPoint( 234, 375 ), 
+		CPoint( 235, 375 ),
+		CPoint( 239, 374 ), 
+		CPoint( 243, 373 ), 
+		CPoint( 247, 372 ),
+		CPoint( 255, 370 ), 
+		CPoint( 262, 368 ), 
+		CPoint( 269, 366 ),
+		CPoint( 316, 348 ), 
+		CPoint( 339, 320 ), 
+		CPoint( 348, 290 ),
+		CPoint( 349, 289 ), 
+		CPoint( 349, 288 ), 
+		CPoint( 349, 287 ),
+		CPoint( 352, 277 ), 
+		CPoint( 354, 267 ), 
+		CPoint( 354, 256 ),
+		CPoint( 357, 213 ), 
+		CPoint( 340, 175 ), 
+		CPoint( 340, 175 ),
+		CPoint( 350, 152 ), 
+		CPoint( 355, 127 ), 
+		CPoint( 355, 100 )
+	},
+	{
+ 		CPoint( 252, 251 ),
+
+		CPoint( 252, 250 ), 
+		CPoint( 252, 250 ), 
+		CPoint( 251, 250 ),
+		CPoint( 251, 250 ), 
+		CPoint( 251, 250 ), 
+		CPoint( 251, 250 ),
+		CPoint( 250, 249 ), 
+		CPoint( 249, 248 ), 
+		CPoint( 249, 248 ),
+		CPoint( 248, 248 ), 
+		CPoint( 248, 248 ), 
+		CPoint( 248, 248 ),
+		CPoint( 248, 253 ), 
+		CPoint( 248, 257 ), 
+		CPoint( 246, 260 ),
+		CPoint( 240, 276 ), 
+		CPoint( 223, 276 ), 
+		CPoint( 223, 276 ),
+		CPoint( 208, 279 ), 
+		CPoint( 201, 271 ), 
+		CPoint( 198, 262 ),
+		CPoint( 197, 261 ), 
+		CPoint( 197, 259 ), 
+		CPoint( 196, 258 ),
+		CPoint( 195, 252 ), 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 )
+	},
+	{
+ 		CPoint( 195, 248 ),
+
+		CPoint( 135, 298 ), 
+		CPoint( 133, 226 ), 
+		CPoint( 134, 196 )
+	},
+	{
+ 		CPoint( 134, 196 ),
+
+		CPoint( 134, 196 ), 
+		CPoint( 134, 196 ), 
+		CPoint( 134, 196 ),
+		CPoint( 134, 195 ), 
+		CPoint( 134, 194 ), 
+		CPoint( 134, 193 ),
+		CPoint( 134, 193 ), 
+		CPoint( 134, 193 ), 
+		CPoint( 134, 192 ),
+		CPoint( 134, 191 ), 
+		CPoint( 134, 190 ), 
+		CPoint( 134, 189 ),
+		CPoint( 134, 189 ), 
+		CPoint( 134, 188 ), 
+		CPoint( 134, 188 )
+	},
+	{
+ 		CPoint( 134, 188 ),
+
+		CPoint( 135, 186 ), 
+		CPoint( 135, 185 ), 
+		CPoint( 135, 185 )
+	},
+	{
+ 		CPoint( 135, 185 ),
+
+		CPoint( 136, 177 ), 
+		CPoint( 139, 171 ), 
+		CPoint( 139, 171 ),
+		CPoint( 139, 171 ), 
+		CPoint( 182, 120 ), 
+		CPoint( 216, 173 ),
+		CPoint( 216, 173 ), 
+		CPoint( 219, 178 ), 
+		CPoint( 220, 189 ),
+		CPoint( 234, 149 ), 
+		CPoint( 254, 149 ), 
+		CPoint( 254, 149 ),
+		CPoint( 257, 148 ), 
+		CPoint( 260, 148 ), 
+		CPoint( 262, 148 ),
+		CPoint( 263, 148 ), 
+		CPoint( 264, 148 ), 
+		CPoint( 264, 148 ),
+		CPoint( 264, 148 ), 
+		CPoint( 265, 148 ), 
+		CPoint( 265, 148 ),
+		CPoint( 266, 148 ), 
+		CPoint( 266, 148 ), 
+		CPoint( 267, 148 ),
+		CPoint( 267, 148 ), 
+		CPoint( 267, 148 ), 
+		CPoint( 267, 148 ),
+		CPoint( 267, 148 ), 
+		CPoint( 268, 148 ), 
+		CPoint( 268, 148 ),
+		CPoint( 268, 148 ), 
+		CPoint( 268, 149 ), 
+		CPoint( 269, 149 ),
+		CPoint( 269, 149 ), 
+		CPoint( 270, 149 ), 
+		CPoint( 270, 149 ),
+		CPoint( 270, 149 ), 
+		CPoint( 270, 149 ), 
+		CPoint( 271, 149 ),
+		CPoint( 271, 149 ), 
+		CPoint( 272, 149 ), 
+		CPoint( 272, 149 ),
+		CPoint( 273, 149 ), 
+		CPoint( 273, 149 ), 
+		CPoint( 274, 150 ),
+		CPoint( 274, 150 ), 
+		CPoint( 274, 150 ), 
+		CPoint( 274, 150 ),
+		CPoint( 275, 150 ), 
+		CPoint( 275, 150 ), 
+		CPoint( 276, 150 ),
+		CPoint( 277, 150 ), 
+		CPoint( 277, 151 ), 
+		CPoint( 278, 151 ),
+		CPoint( 278, 151 ), 
+		CPoint( 279, 151 ), 
+		CPoint( 279, 151 ),
+		CPoint( 280, 151 ), 
+		CPoint( 280, 152 ), 
+		CPoint( 281, 152 ),
+		CPoint( 281, 152 ), 
+		CPoint( 281, 152 ), 
+		CPoint( 281, 152 ),
+		CPoint( 282, 152 ), 
+		CPoint( 282, 152 ), 
+		CPoint( 282, 153 ),
+		CPoint( 282, 153 ), 
+		CPoint( 283, 153 ), 
+		CPoint( 283, 153 ),
+		CPoint( 286, 155 ), 
+		CPoint( 289, 157 ), 
+		CPoint( 291, 159 ),
+		CPoint( 291, 159 ), 
+		CPoint( 292, 159 ), 
+		CPoint( 292, 159 ),
+		CPoint( 292, 160 ), 
+		CPoint( 292, 160 ), 
+		CPoint( 292, 160 ),
+		CPoint( 293, 160 ), 
+		CPoint( 293, 161 ), 
+		CPoint( 294, 162 ),
+		CPoint( 294, 162 ), 
+		CPoint( 294, 162 ), 
+		CPoint( 294, 162 ),
+		CPoint( 296, 164 ), 
+		CPoint( 297, 166 ), 
+		CPoint( 298, 167 ),
+		CPoint( 298, 168 ), 
+		CPoint( 299, 168 ), 
+		CPoint( 299, 169 ),
+		CPoint( 300, 170 ), 
+		CPoint( 300, 171 ), 
+		CPoint( 301, 172 ),
+		CPoint( 301, 173 ), 
+		CPoint( 301, 173 ), 
+		CPoint( 301, 173 ),
+		CPoint( 303, 176 ), 
+		CPoint( 304, 180 ), 
+		CPoint( 305, 182 ),
+		CPoint( 305, 183 ), 
+		CPoint( 305, 183 ), 
+		CPoint( 306, 184 ),
+		CPoint( 306, 185 ), 
+		CPoint( 306, 186 ), 
+		CPoint( 307, 187 )
+	},
+	{
+ 		CPoint( 307, 187 ),
+
+		CPoint( 307, 187 ), 
+		CPoint( 307, 187 ), 
+		CPoint( 307, 189 ),
+		CPoint( 308, 191 ), 
+		CPoint( 308, 194 ), 
+		CPoint( 308, 198 )
+	},
+	{
+ 		CPoint( 308, 198 ),
+
+		CPoint( 309, 226 ), 
+		CPoint( 307, 295 ), 
+		CPoint( 252, 251 )
+	},
+
+	/* Path 3 */
+	{
+ 		CPoint( 222, 376 ),
+
+		CPoint( 222, 376 ), 
+		CPoint( 222, 376 ), 
+		CPoint( 222, 376 ),
+		CPoint( 215, 376 ), 
+		CPoint( 205, 375 ), 
+		CPoint( 193, 372 ),
+		CPoint( 186, 370 ), 
+		CPoint( 178, 368 ), 
+		CPoint( 170, 365 )
+	},
+	{
+ 		CPoint( 170, 365 ),
+
+		CPoint( 140, 354 ), 
+		CPoint( 107, 333 ), 
+		CPoint( 94, 290 )
+	},
+	{
+ 		CPoint( 94, 290 ),
+
+		CPoint( 91, 280 ), 
+		CPoint( 91, 269 ), 
+		CPoint( 89, 256 ),
+		CPoint( 89, 256 ), 
+		CPoint( 89, 256 ), 
+		CPoint( 89, 255 ),
+		CPoint( 89, 255 ), 
+		CPoint( 89, 255 ), 
+		CPoint( 89, 255 ),
+		CPoint( 89, 255 ), 
+		CPoint( 89, 254 ), 
+		CPoint( 89, 254 ),
+		CPoint( 88, 244 ), 
+		CPoint( 88, 235 ), 
+		CPoint( 89, 224 ),
+		CPoint( 89, 224 ), 
+		CPoint( 89, 224 ), 
+		CPoint( 89, 224 ),
+		CPoint( 90, 227 ), 
+		CPoint( 91, 230 ), 
+		CPoint( 92, 233 ),
+		CPoint( 92, 233 ), 
+		CPoint( 92, 233 ), 
+		CPoint( 92, 233 ),
+		CPoint( 114, 290 ), 
+		CPoint( 160, 337 ), 
+		CPoint( 232, 375 )
+	},
+
+	/* Path 4 */
+	{
+ 		CPoint( 244, 109 ),
+
+		CPoint( 205, 100 ), 
+		CPoint( 177, 108 ), 
+		CPoint( 162, 116 ),
+		CPoint( 161, 116 ), 
+		CPoint( 159, 117 ), 
+		CPoint( 158, 118 ),
+		CPoint( 157, 118 ), 
+		CPoint( 157, 118 ), 
+		CPoint( 157, 119 ),
+		CPoint( 155, 120 ), 
+		CPoint( 153, 121 ), 
+		CPoint( 152, 122 ),
+		CPoint( 152, 122 ), 
+		CPoint( 203, 120 ), 
+		CPoint( 220, 147 ),
+		CPoint( 220, 147 ), 
+		CPoint( 230, 138 ), 
+		CPoint( 240, 131 ),
+		CPoint( 250, 124 ), 
+		CPoint( 272, 122 ), 
+		CPoint( 272, 122 )
+	},
+	{
+ 		CPoint( 284, 122 ),
+
+		CPoint( 274, 118 ), 
+		CPoint( 265, 115 ), 
+		CPoint( 257, 112 ),
+		CPoint( 252, 111 ), 
+		CPoint( 248, 110 ), 
+		CPoint( 244, 109 )
+	},
+
+	/* Path 5 */
+	{
+ 		CPoint( 306, 188 ),
+
+		CPoint( 250, 163 ), 
+		CPoint( 222, 194 ), 
+		CPoint( 222, 194 )
+	},
+	{
+ 		CPoint( 222, 214 ),
+
+		CPoint( 222, 214 ), 
+		CPoint( 241, 219 ), 
+		CPoint( 249, 248 ),
+		CPoint( 249, 248 ), 
+		CPoint( 249, 248 ), 
+		CPoint( 249, 248 ),
+		CPoint( 249, 248 ), 
+		CPoint( 250, 249 ), 
+		CPoint( 251, 250 ),
+		CPoint( 251, 250 ), 
+		CPoint( 251, 250 ), 
+		CPoint( 252, 250 ),
+		CPoint( 252, 250 ), 
+		CPoint( 252, 250 ), 
+		CPoint( 253, 251 ),
+		CPoint( 252, 250 ), 
+		CPoint( 251, 249 ), 
+		CPoint( 250, 249 ),
+		CPoint( 252, 250 ), 
+		CPoint( 309, 283 ), 
+		CPoint( 306, 188 )
+	},
+	{
+ 		CPoint( 238, 221 ),
+
+		CPoint( 233, 221 ), 
+		CPoint( 228, 215 ), 
+		CPoint( 228, 208 ),
+		CPoint( 228, 202 ), 
+		CPoint( 233, 196 ), 
+		CPoint( 238, 196 ),
+		CPoint( 241, 196 ), 
+		CPoint( 243, 197 ), 
+		CPoint( 245, 199 ),
+		CPoint( 245, 199 ), 
+		CPoint( 246, 200 ), 
+		CPoint( 246, 200 ),
+		CPoint( 248, 202 ), 
+		CPoint( 249, 205 ), 
+		CPoint( 249, 208 ),
+		CPoint( 248, 215 ), 
+		CPoint( 244, 221 ), 
+		CPoint( 238, 221 )
+	},
+
+	/* Path 6 */
+	{
+ 		CPoint( 220, 193 ),
+
+		CPoint( 179, 168 ), 
+		CPoint( 139, 183 ), 
+		CPoint( 135, 185 )
+	},
+	{
+ 		CPoint( 136, 185 ),
+
+		CPoint( 135, 226 ), 
+		CPoint( 145, 244 ), 
+		CPoint( 157, 251 ),
+		CPoint( 157, 252 ), 
+		CPoint( 158, 252 ), 
+		CPoint( 158, 252 ),
+		CPoint( 163, 254 ), 
+		CPoint( 168, 255 ), 
+		CPoint( 173, 255 ),
+		CPoint( 173, 255 ), 
+		CPoint( 173, 255 ), 
+		CPoint( 174, 255 ),
+		CPoint( 174, 255 ), 
+		CPoint( 175, 255 ), 
+		CPoint( 176, 255 ),
+		CPoint( 177, 255 ), 
+		CPoint( 178, 254 ), 
+		CPoint( 179, 254 ),
+		CPoint( 179, 254 ), 
+		CPoint( 179, 254 ), 
+		CPoint( 180, 254 ),
+		CPoint( 182, 254 ), 
+		CPoint( 183, 253 ), 
+		CPoint( 185, 253 ),
+		CPoint( 185, 253 ), 
+		CPoint( 186, 253 ), 
+		CPoint( 186, 252 ),
+		CPoint( 189, 252 ), 
+		CPoint( 191, 250 ), 
+		CPoint( 193, 250 ),
+		CPoint( 193, 250 ), 
+		CPoint( 193, 250 ), 
+		CPoint( 193, 249 ),
+		CPoint( 194, 249 ), 
+		CPoint( 194, 249 ), 
+		CPoint( 195, 249 ),
+		CPoint( 195, 249 ), 
+		CPoint( 195, 249 ), 
+		CPoint( 195, 249 )
+	},
+	{
+ 		CPoint( 195, 248 ),
+
+		CPoint( 200, 220 ), 
+		CPoint( 219, 214 ), 
+		CPoint( 219, 214 ),
+		CPoint( 221, 206 ), 
+		CPoint( 221, 199 ), 
+		CPoint( 220, 193 )
+	},
+	{
+ 		CPoint( 203, 221 ),
+
+		CPoint( 198, 221 ), 
+		CPoint( 194, 215 ), 
+		CPoint( 194, 208 ),
+		CPoint( 194, 202 ), 
+		CPoint( 198, 196 ), 
+		CPoint( 203, 196 ),
+		CPoint( 205, 196 ), 
+		CPoint( 207, 197 ), 
+		CPoint( 209, 198 ),
+		CPoint( 210, 199 ), 
+		CPoint( 210, 200 ), 
+		CPoint( 211, 201 ),
+		CPoint( 212, 203 ), 
+		CPoint( 213, 206 ), 
+		CPoint( 213, 209 ),
+		CPoint( 213, 215 ), 
+		CPoint( 208, 221 ), 
+		CPoint( 203, 221 )
+	},
+
+	/* Path 7 */
+	{
+ 		CPoint( 246, 260 ),
+
+		CPoint( 240, 276 ), 
+		CPoint( 223, 276 ), 
+		CPoint( 223, 276 ),
+		CPoint( 208, 279 ), 
+		CPoint( 201, 271 ), 
+		CPoint( 198, 262 ),
+		CPoint( 197, 261 ), 
+		CPoint( 197, 259 ), 
+		CPoint( 196, 258 ),
+		CPoint( 196, 258 ), 
+		CPoint( 199, 248 ), 
+		CPoint( 220, 260 ),
+		CPoint( 220, 260 ), 
+		CPoint( 241, 246 ), 
+		CPoint( 246, 260 )
+	},
+
+	/* Path 8 */
+	{
+ 		CPoint( 248, 248 ),
+
+		CPoint( 248, 253 ), 
+		CPoint( 248, 257 ), 
+		CPoint( 246, 260 ),
+		CPoint( 241, 246 ), 
+		CPoint( 220, 260 ), 
+		CPoint( 220, 260 ),
+		CPoint( 199, 248 ), 
+		CPoint( 196, 258 ), 
+		CPoint( 196, 258 ),
+		CPoint( 195, 252 ), 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ),
+		CPoint( 200, 220 ), 
+		CPoint( 219, 214 ), 
+		CPoint( 219, 214 ),
+		CPoint( 220, 206 ), 
+		CPoint( 221, 199 ), 
+		CPoint( 220, 193 ),
+		CPoint( 221, 193 ), 
+		CPoint( 221, 194 ), 
+		CPoint( 222, 194 )
+	},
+	{
+ 		CPoint( 222, 214 ),
+
+		CPoint( 222, 214 ), 
+		CPoint( 241, 219 ), 
+		CPoint( 248, 248 )
+	},
+
+	/* Path 9 */
+	{
+ 		CPoint( 306, 187 ),
+
+		CPoint( 306, 187 ), 
+		CPoint( 306, 187 ), 
+		CPoint( 306, 188 ),
+		CPoint( 250, 163 ), 
+		CPoint( 222, 194 ), 
+		CPoint( 222, 194 ),
+		CPoint( 221, 194 ), 
+		CPoint( 221, 194 ), 
+		CPoint( 220, 193 ),
+		CPoint( 220, 192 ), 
+		CPoint( 220, 191 ), 
+		CPoint( 220, 189 ),
+		CPoint( 220, 189 ), 
+		CPoint( 220, 189 ), 
+		CPoint( 220, 189 )
+	},
+	{
+ 		CPoint( 220, 189 ),
+
+		CPoint( 234, 149 ), 
+		CPoint( 254, 149 ), 
+		CPoint( 254, 149 ),
+		CPoint( 257, 148 ), 
+		CPoint( 260, 148 ), 
+		CPoint( 262, 148 ),
+		CPoint( 263, 148 ), 
+		CPoint( 264, 148 ), 
+		CPoint( 264, 148 ),
+		CPoint( 265, 148 ), 
+		CPoint( 265, 148 ), 
+		CPoint( 265, 148 ),
+		CPoint( 266, 148 ), 
+		CPoint( 266, 148 ), 
+		CPoint( 267, 148 ),
+		CPoint( 267, 148 ), 
+		CPoint( 267, 148 ), 
+		CPoint( 267, 148 ),
+		CPoint( 267, 148 ), 
+		CPoint( 268, 148 ), 
+		CPoint( 268, 148 ),
+		CPoint( 268, 148 ), 
+		CPoint( 269, 149 ), 
+		CPoint( 269, 149 ),
+		CPoint( 269, 149 ), 
+		CPoint( 270, 149 ), 
+		CPoint( 270, 149 ),
+		CPoint( 270, 149 ), 
+		CPoint( 271, 149 ), 
+		CPoint( 271, 149 ),
+		CPoint( 271, 149 ), 
+		CPoint( 272, 149 ), 
+		CPoint( 272, 149 ),
+		CPoint( 273, 149 ), 
+		CPoint( 273, 149 ), 
+		CPoint( 274, 150 ),
+		CPoint( 274, 150 ), 
+		CPoint( 274, 150 ), 
+		CPoint( 274, 150 ),
+		CPoint( 275, 150 ), 
+		CPoint( 275, 150 ), 
+		CPoint( 276, 150 ),
+		CPoint( 277, 150 ), 
+		CPoint( 277, 151 ), 
+		CPoint( 278, 151 ),
+		CPoint( 278, 151 ), 
+		CPoint( 279, 151 ), 
+		CPoint( 279, 151 ),
+		CPoint( 280, 151 ), 
+		CPoint( 280, 152 ), 
+		CPoint( 281, 152 ),
+		CPoint( 281, 152 ), 
+		CPoint( 281, 152 ), 
+		CPoint( 281, 152 ),
+		CPoint( 282, 152 ), 
+		CPoint( 282, 152 ), 
+		CPoint( 282, 153 ),
+		CPoint( 282, 153 ), 
+		CPoint( 283, 153 ), 
+		CPoint( 283, 153 ),
+		CPoint( 286, 155 ), 
+		CPoint( 289, 157 ), 
+		CPoint( 291, 159 ),
+		CPoint( 291, 159 ), 
+		CPoint( 292, 159 ), 
+		CPoint( 292, 159 ),
+		CPoint( 292, 160 ), 
+		CPoint( 292, 160 ), 
+		CPoint( 292, 160 ),
+		CPoint( 293, 160 ), 
+		CPoint( 293, 161 ), 
+		CPoint( 294, 162 ),
+		CPoint( 294, 162 ), 
+		CPoint( 294, 162 ), 
+		CPoint( 295, 162 ),
+		CPoint( 296, 164 ), 
+		CPoint( 297, 166 ), 
+		CPoint( 298, 167 ),
+		CPoint( 299, 168 ), 
+		CPoint( 299, 168 ), 
+		CPoint( 299, 169 ),
+		CPoint( 300, 170 ), 
+		CPoint( 300, 171 ), 
+		CPoint( 301, 172 ),
+		CPoint( 301, 173 ), 
+		CPoint( 301, 173 ), 
+		CPoint( 301, 173 ),
+		CPoint( 303, 176 ), 
+		CPoint( 304, 180 ), 
+		CPoint( 305, 182 ),
+		CPoint( 305, 183 ), 
+		CPoint( 306, 183 ), 
+		CPoint( 306, 184 ),
+		CPoint( 306, 185 ), 
+		CPoint( 306, 186 ), 
+		CPoint( 307, 187 )
+	},
+
+	/* Path 10 */
+	{
+ 		CPoint( 89, 100 ),
+
+		CPoint( 89, 101 ), 
+		CPoint( 89, 101 ), 
+		CPoint( 89, 101 )
+	},
+	{
+ 		CPoint( 79, 73 ),
+
+		CPoint( 78, 71 ), 
+		CPoint( 79, 68 ), 
+		CPoint( 82, 68 ),
+		CPoint( 84, 67 ), 
+		CPoint( 87, 68 ), 
+		CPoint( 88, 71 ),
+		CPoint( 88, 71 ), 
+		CPoint( 88, 72 ), 
+		CPoint( 88, 72 )
+	},
+
+	/* Path 11 */
+	{
+ 		CPoint( 85, 99 ),
+
+		CPoint( 83, 98 ), 
+		CPoint( 82, 97 ), 
+		CPoint( 81, 96 ),
+		CPoint( 79, 94 ), 
+		CPoint( 76, 92 ), 
+		CPoint( 74, 90 ),
+		CPoint( 73, 89 ), 
+		CPoint( 72, 89 ), 
+		CPoint( 71, 88 ),
+		CPoint( 70, 87 ), 
+		CPoint( 68, 86 ), 
+		CPoint( 67, 85 ),
+		CPoint( 66, 84 ), 
+		CPoint( 65, 84 ), 
+		CPoint( 64, 83 ),
+		CPoint( 63, 82 ), 
+		CPoint( 62, 81 ), 
+		CPoint( 62, 79 ),
+		CPoint( 62, 76 ), 
+		CPoint( 63, 74 ), 
+		CPoint( 66, 74 ),
+		CPoint( 66, 74 ), 
+		CPoint( 66, 74 ), 
+		CPoint( 66, 74 ),
+		CPoint( 68, 74 ), 
+		CPoint( 69, 75 ), 
+		CPoint( 70, 76 ),
+		CPoint( 71, 77 ), 
+		CPoint( 72, 78 ), 
+		CPoint( 73, 80 ),
+		CPoint( 74, 81 ), 
+		CPoint( 74, 82 ), 
+		CPoint( 75, 83 ),
+		CPoint( 76, 84 ), 
+		CPoint( 77, 86 ), 
+		CPoint( 78, 87 ),
+		CPoint( 80, 89 ), 
+		CPoint( 82, 91 ), 
+		CPoint( 84, 93 ),
+		CPoint( 84, 94 ), 
+		CPoint( 85, 95 ), 
+		CPoint( 86, 96 )
+	},
+
+	/* Path 12 */
+	{
+ 		CPoint( 59, 99 ),
+
+		CPoint( 56, 99 ), 
+		CPoint( 54, 97 ), 
+		CPoint( 54, 95 ),
+		CPoint( 54, 92 ), 
+		CPoint( 57, 90 ), 
+		CPoint( 59, 90 ),
+		CPoint( 60, 90 ), 
+		CPoint( 60, 90 ), 
+		CPoint( 61, 91 )
+	},
+
+	/* Path 13 */
+	{
+ 		CPoint( 351, 70 ),
+
+		CPoint( 351, 68 ), 
+		CPoint( 353, 65 ), 
+		CPoint( 355, 65 ),
+		CPoint( 358, 64 ), 
+		CPoint( 361, 66 ), 
+		CPoint( 361, 69 ),
+		CPoint( 361, 70 ), 
+		CPoint( 361, 70 ), 
+		CPoint( 361, 71 )
+	},
+
+	/* Path 14 */
+	{
+ 		CPoint( 371, 74 ),
+
+		CPoint( 372, 71 ), 
+		CPoint( 375, 71 ), 
+		CPoint( 377, 72 ),
+		CPoint( 379, 73 ), 
+		CPoint( 380, 76 ), 
+		CPoint( 378, 78 ),
+		CPoint( 378, 79 ), 
+		CPoint( 378, 79 ), 
+		CPoint( 378, 79 )
+	},
+
+	/* Path 15 */
+	{
+ 		CPoint( 380, 90 ),
+
+		CPoint( 383, 90 ), 
+		CPoint( 386, 91 ), 
+		CPoint( 386, 93 ),
+		CPoint( 387, 96 ), 
+		CPoint( 386, 98 ), 
+		CPoint( 384, 99 ),
+		CPoint( 383, 99 ), 
+		CPoint( 383, 99 ), 
+		CPoint( 382, 99 )
+	},
+
+	/* Path 16 */
+	{
+ 		CPoint( 212, 62 ),
+
+		CPoint( 226, 66 ), 
+		CPoint( 220, 56 ), 
+		CPoint( 220, 56 ),
+		CPoint( 236, 53 ), 
+		CPoint( 220, 44 ), 
+		CPoint( 220, 44 ),
+		CPoint( 236, 34 ), 
+		CPoint( 216, 33 ), 
+		CPoint( 216, 33 ),
+		CPoint( 221, 16 ), 
+		CPoint( 205, 25 ), 
+		CPoint( 205, 25 ),
+		CPoint( 199, 8  ), 
+		CPoint( 191, 24 ), 
+		CPoint( 191, 24 ),
+		CPoint( 178, 10 ), 
+		CPoint( 174, 28 ), 
+		CPoint( 174, 28 ),
+		CPoint( 158, 25 ), 
+		CPoint( 166, 41 ), 
+		CPoint( 166, 41 ),
+		CPoint( 150, 43 ), 
+		CPoint( 162, 53 ), 
+		CPoint( 162, 53 ),
+		CPoint( 162, 54 ), 
+		CPoint( 161, 54 ), 
+		CPoint( 161, 55 ),
+		CPoint( 156, 67 ), 
+		CPoint( 171, 63 ), 
+		CPoint( 171, 63 ),
+		CPoint( 165, 77 ), 
+		CPoint( 181, 71 ), 
+		CPoint( 181, 71 ),
+		CPoint( 185, 69 ), 
+		CPoint( 186, 68 ), 
+		CPoint( 186, 68 ),
+		CPoint( 172, 78 ), 
+		CPoint( 161, 110 ), 
+		CPoint( 158, 118 ),
+		CPoint( 159, 117 ), 
+		CPoint( 161, 116 ), 
+		CPoint( 162, 116 ),
+		CPoint( 178, 108 ), 
+		CPoint( 205, 100 ), 
+		CPoint( 244, 109 ),
+		CPoint( 244, 109 ), 
+		CPoint( 244, 109 ), 
+		CPoint( 244, 109 ),
+		CPoint( 248, 110 ), 
+		CPoint( 253, 111 ), 
+		CPoint( 257, 112 ),
+		CPoint( 255, 102 ), 
+		CPoint( 219, 65 ), 
+		CPoint( 212, 62 )
+	},
+	{
+ 		CPoint( 212, 62 ),
+
+		CPoint( 211, 62 ), 
+		CPoint( 211, 62 ), 
+		CPoint( 211, 62 ),
+		CPoint( 211, 62 ), 
+		CPoint( 211, 62 ), 
+		CPoint( 212, 62 )
+	},
+
+	/* Path 17 */
+	{
+ 		CPoint( 226, 81 ),
+
+		CPoint( 210, 76 ), 
+		CPoint( 175, 89 ), 
+		CPoint( 175, 89 ),
+		CPoint( 177, 81 ), 
+		CPoint( 185, 74 ), 
+		CPoint( 185, 74 ),
+		CPoint( 193, 84 ), 
+		CPoint( 197, 73 ), 
+		CPoint( 197, 73 ),
+		CPoint( 204, 83 ), 
+		CPoint( 212, 70 ), 
+		CPoint( 212, 70 ),
+		CPoint( 225, 76 ), 
+		CPoint( 226, 81 ), 
+		CPoint( 226, 81 )
+	},
+
+	/* Path 18 */
+	{
+ 		CPoint( 244, 109 ),
+
+		CPoint( 244, 109 ), 
+		CPoint( 244, 109 ), 
+		CPoint( 244, 109 ),
+		CPoint( 205, 100 ), 
+		CPoint( 177, 108 ), 
+		CPoint( 162, 116 )
+	},
+	{
+ 		CPoint( 169, 102 ),
+
+		CPoint( 169, 102 ), 
+		CPoint( 185, 90 ), 
+		CPoint( 235, 93 ),
+		CPoint( 235, 93 ), 
+		CPoint( 238, 95 ), 
+		CPoint( 242, 104 ),
+		CPoint( 243, 106 ), 
+		CPoint( 244, 108 ), 
+		CPoint( 244, 109 )
+	},
+
+	/* Path 19 */
+	{
+ 		CPoint( 94, 293 ),
+
+		CPoint( 94, 294 ), 
+		CPoint( 94, 296 ), 
+		CPoint( 94, 297 ),
+		CPoint( 94, 347 ), 
+		CPoint( 81, 362 ), 
+		CPoint( 81, 362 ),
+		CPoint( 80, 363 ), 
+		CPoint( 80, 364 ), 
+		CPoint( 79, 364 ),
+		CPoint( 79, 364 ), 
+		CPoint( 79, 364 ), 
+		CPoint( 79, 364 ),
+		CPoint( 71, 374 ), 
+		CPoint( 65, 379 ), 
+		CPoint( 60, 382 ),
+		CPoint( 58, 383 ), 
+		CPoint( 57, 383 ), 
+		CPoint( 55, 384 ),
+		CPoint( 50, 385 ), 
+		CPoint( 47, 382 ), 
+		CPoint( 46, 379 ),
+		CPoint( 44, 376 ), 
+		CPoint( 44, 371 ), 
+		CPoint( 44, 370 )
+	},
+	{
+ 		CPoint( 44, 370 ),
+
+		CPoint( 44, 370 ), 
+		CPoint( 44, 370 ), 
+		CPoint( 44, 370 ),
+		CPoint( 44, 376 ), 
+		CPoint( 66, 289 ), 
+		CPoint( 66, 289 ),
+		CPoint( 66, 288 ), 
+		CPoint( 66, 288 ), 
+		CPoint( 66, 288 ),
+		CPoint( 66, 288 ), 
+		CPoint( 66, 288 ), 
+		CPoint( 66, 288 ),
+		CPoint( 66, 285 ), 
+		CPoint( 66, 282 ), 
+		CPoint( 66, 280 ),
+		CPoint( 66, 280 ), 
+		CPoint( 66, 279 ), 
+		CPoint( 66, 278 ),
+		CPoint( 66, 278 ), 
+		CPoint( 66, 277 ), 
+		CPoint( 66, 276 ),
+		CPoint( 66, 273 ), 
+		CPoint( 66, 270 ), 
+		CPoint( 67, 267 ),
+		CPoint( 67, 267 ), 
+		CPoint( 67, 266 ), 
+		CPoint( 67, 266 ),
+		CPoint( 67, 266 ), 
+		CPoint( 67, 265 ), 
+		CPoint( 67, 265 ),
+		CPoint( 67, 265 ), 
+		CPoint( 67, 264 ), 
+		CPoint( 67, 264 ),
+		CPoint( 67, 263 ), 
+		CPoint( 67, 263 ), 
+		CPoint( 67, 263 ),
+		CPoint( 67, 262 ), 
+		CPoint( 68, 262 ), 
+		CPoint( 68, 261 ),
+		CPoint( 68, 261 ), 
+		CPoint( 68, 261 ), 
+		CPoint( 68, 261 ),
+		CPoint( 68, 261 ), 
+		CPoint( 68, 260 ), 
+		CPoint( 68, 260 ),
+		CPoint( 68, 260 ), 
+		CPoint( 68, 260 ), 
+		CPoint( 68, 260 ),
+		CPoint( 68, 259 ), 
+		CPoint( 68, 259 ), 
+		CPoint( 68, 259 ),
+		CPoint( 68, 259 ), 
+		CPoint( 68, 258 ), 
+		CPoint( 68, 258 ),
+		CPoint( 68, 258 ), 
+		CPoint( 68, 258 ), 
+		CPoint( 69, 258 ),
+		CPoint( 69, 257 ), 
+		CPoint( 69, 257 ), 
+		CPoint( 69, 256 ),
+		CPoint( 69, 256 ), 
+		CPoint( 69, 256 ), 
+		CPoint( 69, 256 ),
+		CPoint( 69, 256 ), 
+		CPoint( 69, 256 ), 
+		CPoint( 70, 256 ),
+		CPoint( 70, 255 ), 
+		CPoint( 70, 255 ), 
+		CPoint( 70, 255 ),
+		CPoint( 70, 255 ), 
+		CPoint( 70, 255 ), 
+		CPoint( 70, 254 ),
+		CPoint( 70, 254 ), 
+		CPoint( 71, 254 ), 
+		CPoint( 71, 253 ),
+		CPoint( 71, 253 ), 
+		CPoint( 71, 253 ), 
+		CPoint( 71, 253 ),
+		CPoint( 72, 252 ), 
+		CPoint( 72, 252 ), 
+		CPoint( 73, 251 ),
+		CPoint( 73, 251 ), 
+		CPoint( 73, 251 ), 
+		CPoint( 73, 251 ),
+		CPoint( 74, 251 ), 
+		CPoint( 74, 250 ), 
+		CPoint( 75, 250 ),
+		CPoint( 75, 250 ), 
+		CPoint( 75, 250 ), 
+		CPoint( 75, 250 ),
+		CPoint( 82, 249 ), 
+		CPoint( 89, 256 ), 
+		CPoint( 89, 256 ),
+		CPoint( 89, 269 ), 
+		CPoint( 91, 280 ), 
+		CPoint( 94, 290 ),
+		CPoint( 94, 291 ), 
+		CPoint( 94, 292 ), 
+		CPoint( 94, 293 )
+	},
+
+	/* Path 20 */
+	{
+ 		CPoint( 60, 382 ),
+
+		CPoint( 60, 381 ), 
+		CPoint( 60, 381 ), 
+		CPoint( 60, 380 )
+	},
+	{
+ 		CPoint( 60, 380 ),
+
+		CPoint( 66, 368 ), 
+		CPoint( 67, 342 ), 
+		CPoint( 67, 342 )
+	},
+
+	/* Path 21 */
+	{
+ 		CPoint( 79, 333 ),
+
+		CPoint( 79, 333 ), 
+		CPoint( 83, 358 ), 
+		CPoint( 78, 364 )
+	},
+
+	/* Path 22 */
+	{
+ 		CPoint( 215, 444 ),
+
+		CPoint( 205, 458 ), 
+		CPoint( 191, 439 ), 
+		CPoint( 191, 439 ),
+		CPoint( 191, 441 ), 
+		CPoint( 191, 443 ), 
+		CPoint( 191, 443 ),
+		CPoint( 192, 455 ), 
+		CPoint( 172, 451 ), 
+		CPoint( 172, 451 ),
+		CPoint( 163, 451 ), 
+		CPoint( 163, 444 ), 
+		CPoint( 165, 438 )
+	},
+	{
+ 		CPoint( 163, 438 ),
+
+		CPoint( 148, 463 ), 
+		CPoint( 138, 440 ), 
+		CPoint( 138, 440 ),
+		CPoint( 128, 431 ), 
+		CPoint( 169, 413 ), 
+		CPoint( 169, 413 ),
+		CPoint( 170, 413 ), 
+		CPoint( 170, 398 ), 
+		CPoint( 170, 384 )
+	},
+	{
+ 		CPoint( 170, 384 ),
+
+		CPoint( 170, 383 ), 
+		CPoint( 170, 382 ), 
+		CPoint( 170, 382 ),
+		CPoint( 170, 381 ), 
+		CPoint( 170, 380 ), 
+		CPoint( 170, 380 ),
+		CPoint( 170, 379 ), 
+		CPoint( 170, 379 ), 
+		CPoint( 170, 378 ),
+		CPoint( 170, 377 ), 
+		CPoint( 170, 377 ), 
+		CPoint( 170, 376 ),
+		CPoint( 170, 374 ), 
+		CPoint( 170, 373 ), 
+		CPoint( 170, 372 ),
+		CPoint( 170, 372 ), 
+		CPoint( 170, 371 ), 
+		CPoint( 170, 370 ),
+		CPoint( 170, 370 ), 
+		CPoint( 170, 370 ), 
+		CPoint( 170, 370 ),
+		CPoint( 170, 369 ), 
+		CPoint( 170, 369 ), 
+		CPoint( 170, 368 ),
+		CPoint( 170, 368 ), 
+		CPoint( 170, 368 ), 
+		CPoint( 170, 368 ),
+		CPoint( 170, 367 ), 
+		CPoint( 170, 367 ), 
+		CPoint( 170, 367 ),
+		CPoint( 170, 366 ), 
+		CPoint( 170, 366 ), 
+		CPoint( 170, 365 ),
+		CPoint( 178, 368 ), 
+		CPoint( 186, 370 ), 
+		CPoint( 193, 372 )
+	},
+	{
+ 		CPoint( 194, 415 ),
+
+		CPoint( 194, 415 ), 
+		CPoint( 226, 430 ), 
+		CPoint( 215, 444 )
+	},
+
+	/* Path 23 */
+	{
+ 		CPoint( 301, 441 ),
+
+		CPoint( 301, 441 ), 
+		CPoint( 290, 463 ), 
+		CPoint( 276, 439 )
+	},
+	{
+ 		CPoint( 275, 439 ),
+
+		CPoint( 276, 444 ), 
+		CPoint( 275, 450 ), 
+		CPoint( 268, 450 ),
+		CPoint( 268, 450 ), 
+		CPoint( 248, 454 ), 
+		CPoint( 248, 442 ),
+		CPoint( 248, 442 ), 
+		CPoint( 248, 441 ), 
+		CPoint( 249, 439 ),
+		CPoint( 248, 440 ), 
+		CPoint( 235, 458 ), 
+		CPoint( 225, 444 ),
+		CPoint( 215, 430 ), 
+		CPoint( 246, 416 ), 
+		CPoint( 246, 416 )
+	},
+	{
+ 		CPoint( 247, 373 ),
+
+		CPoint( 255, 371 ), 
+		CPoint( 262, 368 ), 
+		CPoint( 270, 366 ),
+		CPoint( 270, 367 ), 
+		CPoint( 269, 413 ), 
+		CPoint( 271, 413 ),
+		CPoint( 271, 413 ), 
+		CPoint( 310, 431 ), 
+		CPoint( 301, 441 )
+	},
+
+	/* Path 24 */
+	{
+ 		CPoint( 211, 203 ),
+
+		CPoint( 211, 205 ), 
+		CPoint( 210, 207 ), 
+		CPoint( 208, 207 ),
+		CPoint( 207, 207 ), 
+		CPoint( 205, 205 ), 
+		CPoint( 205, 203 ),
+		CPoint( 205, 200 ), 
+		CPoint( 207, 198 ), 
+		CPoint( 208, 198 ),
+		CPoint( 208, 198 ), 
+		CPoint( 209, 198 ), 
+		CPoint( 209, 198 ),
+		CPoint( 210, 199 ), 
+		CPoint( 210, 200 ), 
+		CPoint( 211, 201 ),
+		CPoint( 211, 202 ), 
+		CPoint( 211, 202 ), 
+		CPoint( 211, 203 )
+	},
+
+	/* Path 25 */
+	{
+ 		CPoint( 246, 203 ),
+
+		CPoint( 246, 205 ), 
+		CPoint( 245, 207 ), 
+		CPoint( 244, 207 ),
+		CPoint( 242, 207 ), 
+		CPoint( 241, 205 ), 
+		CPoint( 241, 203 ),
+		CPoint( 241, 200 ), 
+		CPoint( 242, 198 ), 
+		CPoint( 244, 198 ),
+		CPoint( 244, 198 ), 
+		CPoint( 244, 198 ), 
+		CPoint( 245, 199 ),
+		CPoint( 245, 199 ), 
+		CPoint( 246, 200 ), 
+		CPoint( 246, 200 ),
+		CPoint( 246, 201 ), 
+		CPoint( 246, 202 ), 
+		CPoint( 246, 203 )
+	},
+
+	/* Path 26 */
+	{
+ 		CPoint( 363, 333 ),
+
+		CPoint( 362, 344 ), 
+		CPoint( 362, 354 ), 
+		CPoint( 364, 364 )
+	},
+
+	/* Path 27 */
+	{
+ 		CPoint( 376, 343 ),
+
+		CPoint( 376, 358 ), 
+		CPoint( 379, 372 ), 
+		CPoint( 387, 381 )
+	},
+
+	/* Path 28 */
+	{
+ 		CPoint( 195, 248 ),
+
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 )
+	},
+	{
+ 		CPoint( 195, 248 ),
+
+		CPoint( 195, 249 ), 
+		CPoint( 195, 249 ), 
+		CPoint( 194, 249 ),
+		CPoint( 194, 249 ), 
+		CPoint( 194, 249 ), 
+		CPoint( 193, 249 ),
+		CPoint( 193, 249 ), 
+		CPoint( 193, 250 ), 
+		CPoint( 192, 250 ),
+		CPoint( 191, 251 ), 
+		CPoint( 189, 252 ), 
+		CPoint( 186, 252 ),
+		CPoint( 186, 252 ), 
+		CPoint( 185, 253 ), 
+		CPoint( 185, 253 ),
+		CPoint( 183, 253 ), 
+		CPoint( 182, 254 ), 
+		CPoint( 180, 254 ),
+		CPoint( 179, 254 ), 
+		CPoint( 179, 254 ), 
+		CPoint( 179, 254 ),
+		CPoint( 178, 254 ), 
+		CPoint( 177, 254 ), 
+		CPoint( 176, 255 ),
+		CPoint( 175, 255 ), 
+		CPoint( 174, 255 ), 
+		CPoint( 174, 255 ),
+		CPoint( 173, 255 ), 
+		CPoint( 173, 255 ), 
+		CPoint( 173, 255 ),
+		CPoint( 168, 255 ), 
+		CPoint( 163, 254 ), 
+		CPoint( 158, 252 ),
+		CPoint( 158, 252 ), 
+		CPoint( 157, 251 ), 
+		CPoint( 157, 251 ),
+		CPoint( 145, 244 ), 
+		CPoint( 135, 226 ), 
+		CPoint( 136, 185 )
+	},
+	{
+ 		CPoint( 135, 185 ),
+
+		CPoint( 135, 186 ), 
+		CPoint( 135, 186 ), 
+		CPoint( 135, 187 ),
+		CPoint( 135, 187 ), 
+		CPoint( 135, 187 ), 
+		CPoint( 134, 188 )
+	},
+	{
+ 		CPoint( 134, 188 ),
+
+		CPoint( 134, 190 ), 
+		CPoint( 134, 193 ), 
+		CPoint( 134, 196 )
+	},
+	{
+ 		CPoint( 134, 196 ),
+
+		CPoint( 133, 226 ), 
+		CPoint( 135, 298 ), 
+		CPoint( 195, 248 ),
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 )
+	},
+
+	/* Path 29 */
+	{
+ 		CPoint( 252, 251 ),
+
+		CPoint( 252, 250 ), 
+		CPoint( 251, 249 ), 
+		CPoint( 250, 249 ),
+		CPoint( 252, 250 ), 
+		CPoint( 309, 283 ), 
+		CPoint( 306, 188 ),
+		CPoint( 306, 188 ), 
+		CPoint( 307, 188 ), 
+		CPoint( 307, 188 ),
+		CPoint( 307, 188 ), 
+		CPoint( 307, 188 ), 
+		CPoint( 307, 189 ),
+		CPoint( 308, 191 ), 
+		CPoint( 308, 194 ), 
+		CPoint( 308, 198 )
+	},
+	{
+ 		CPoint( 308, 198 ),
+
+		CPoint( 309, 226 ), 
+		CPoint( 307, 295 ), 
+		CPoint( 252, 251 )
+	}
+};
+
+//------------------------------
+
+std::vector<std::vector<CPoint>> lines = {
+	/* Path 1 */
+	{ 
+		CPoint( 135, 185 ), 
+		CPoint( 135, 185 ) 
+	},
+	{ 
+		CPoint( 88, 239 ), 
+		CPoint( 88, 240 ) 
+	},
+	{ 
+		CPoint( 89, 255 ), 
+		CPoint( 89, 255 ) 
+	},
+
+	/* Path 2 */
+	{ 
+		CPoint( 284, 122 ), 
+		CPoint( 272, 122 ) 
+	},
+	{ 
+		CPoint( 148, 125 ), 
+		CPoint( 89, 101 ) 
+	},
+	{ 
+		CPoint( 89, 101 ), 
+		CPoint( 88, 101 ) 
+	},
+	{ 
+		CPoint( 88, 101 ), 
+		CPoint( 89, 136 ) 
+	},
+	{ 
+		CPoint( 89, 136 ), 
+		CPoint( 100, 179 ) 
+	},
+	{ 
+		CPoint( 232, 374 ), 
+		CPoint( 232, 374 ) 
+	},
+	{ 
+		CPoint( 232, 374 ), 
+		CPoint( 222, 376 ) 
+	},
+	{ 
+		CPoint( 232, 376 ), 
+		CPoint( 232, 376 ) 
+	},
+	{ 
+		CPoint( 252, 251 ), 
+		CPoint( 252, 251 ) 
+	},
+	{ 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ) 
+	},
+	{ 
+		CPoint( 134, 196 ), 
+		CPoint( 134, 196 ) 
+	},
+	{ 
+		CPoint( 134, 188 ), 
+		CPoint( 134, 188 ) 
+	},
+	{ 
+		CPoint( 134, 188 ), 
+		CPoint( 134, 188 ) 
+	},
+	{ 
+		CPoint( 135, 185 ), 
+		CPoint( 135, 185 ) 
+	},
+	{ 
+		CPoint( 135, 185 ), 
+		CPoint( 135, 185 ) 
+	},
+	{ 
+		CPoint( 307, 187 ), 
+		CPoint( 307, 187 ) 
+	},
+	{ 
+		CPoint( 308, 198 ), 
+		CPoint( 308, 198 ) 
+	},
+
+	/* Path 3 */
+	{ 
+		CPoint( 232, 375 ), 
+		CPoint( 232, 375 ) 
+	},
+	{ 
+		CPoint( 232, 375 ), 
+		CPoint( 222, 376 ) 
+	},
+	{ 
+		CPoint( 170, 365 ), 
+		CPoint( 170, 365 ) 
+	},
+	{ 
+		CPoint( 94, 290 ), 
+		CPoint( 94, 290 ) 
+	},
+
+	/* Path 4 */
+	{ 
+		CPoint( 272, 122 ), 
+		CPoint( 284, 122 ) 
+	},
+
+	/* Path 5 */
+	{ 
+		CPoint( 222, 194 ), 
+		CPoint( 222, 214 ) 
+	},
+
+	/* Path 6 */
+	{ 
+		CPoint( 135, 185 ), 
+		CPoint( 135, 185 ) 
+	},
+	{ 
+		CPoint( 135, 185 ), 
+		CPoint( 136, 185 ) 
+	},
+	{ 
+		CPoint( 195, 249 ), 
+		CPoint( 195, 249 ) 
+	},
+	{ 
+		CPoint( 195, 249 ), 
+		CPoint( 195, 249 ) 
+	},
+	{ 
+		CPoint( 195, 249 ), 
+		CPoint( 195, 249 ) 
+	},
+	{ 
+		CPoint( 195, 249 ), 
+		CPoint( 195, 248 ) 
+	},
+	{ 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ) 
+	},
+	{ 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ) 
+	},
+	{ 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ) 
+	},
+
+	/* Path 8 */
+	{ 
+		CPoint( 222, 194 ), 
+		CPoint( 222, 214 ) 
+	},
+
+	/* Path 9 */
+	{ 
+		CPoint( 220, 189 ), 
+		CPoint( 220, 189 ) 
+	},
+	{ 
+		CPoint( 307, 187 ), 
+		CPoint( 306, 187 ) 
+	},
+
+	/* Path 10 */
+	{ 
+		CPoint( 89, 101 ), 
+		CPoint( 88, 101 ) 
+	},
+	{ 
+		CPoint( 88, 101 ), 
+		CPoint( 87, 100 ) 
+	},
+	{ 
+		CPoint( 87, 100 ), 
+		CPoint( 87, 100 ) 
+	},
+	{ 
+		CPoint( 87, 100 ), 
+		CPoint( 86, 96 ) 
+	},
+	{ 
+		CPoint( 86, 96 ), 
+		CPoint( 79, 73 ) 
+	},
+	{ 
+		CPoint( 88, 72 ), 
+		CPoint( 89, 99 ) 
+	},
+	{ 
+		CPoint( 89, 99 ), 
+		CPoint( 89, 100 ) 
+	},
+
+	/* Path 12 */
+	{ 
+		CPoint( 88, 101 ), 
+		CPoint( 87, 101 ) 
+	},
+	{ 
+		CPoint( 87, 101 ), 
+		CPoint( 86, 101 ) 
+	},
+	{ 
+		CPoint( 86, 101 ), 
+		CPoint( 59, 99 ) 
+	},
+	{ 
+		CPoint( 61, 91 ), 
+		CPoint( 85, 99 ) 
+	},
+	{ 
+		CPoint( 85, 99 ), 
+		CPoint( 87, 100 ) 
+	},
+	{ 
+		CPoint( 87, 100 ), 
+		CPoint( 87, 100 ) 
+	},
+	{ 
+		CPoint( 87, 100 ), 
+		CPoint( 88, 101 ) 
+	},
+
+	/* Path 13 */
+	{ 
+		CPoint( 361, 71 ), 
+		CPoint( 355, 100 ) 
+	},
+	{ 
+		CPoint( 355, 100 ), 
+		CPoint( 351, 70 ) 
+	},
+	{ 
+		CPoint( 361, 71 ), 
+		CPoint( 361, 71 ) 
+	},
+
+	/* Path 14 */
+	{ 
+		CPoint( 378, 79 ), 
+		CPoint( 355, 100 ) 
+	},
+	{ 
+		CPoint( 355, 100 ), 
+		CPoint( 371, 74 ) 
+	},
+	{ 
+		CPoint( 378, 79 ), 
+		CPoint( 378, 79 ) 
+	},
+
+	/* Path 15 */
+	{ 
+		CPoint( 382, 99 ), 
+		CPoint( 355, 100 ) 
+	},
+	{ 
+		CPoint( 355, 100 ), 
+		CPoint( 380, 90 ) 
+	},
+	{ 
+		CPoint( 382, 99 ), 
+		CPoint( 382, 99 ) 
+	},
+
+	/* Path 17 */
+	{ 
+		CPoint( 226, 81 ), 
+		CPoint( 226, 81 ) 
+	},
+
+	/* Path 18 */
+	{ 
+		CPoint( 162, 116 ), 
+		CPoint( 169, 102 ) 
+	},
+
+	/* Path 19 */
+	{ 
+		CPoint( 44, 370 ), 
+		CPoint( 44, 370 ) 
+	},
+
+	/* Path 20 */
+	{ 
+		CPoint( 60, 380 ), 
+		CPoint( 60, 380 ) 
+	},
+
+	/* Path 22 */
+	{ 
+		CPoint( 165, 438 ), 
+		CPoint( 163, 438 ) 
+	},
+	{ 
+		CPoint( 170, 384 ), 
+		CPoint( 170, 384 ) 
+	},
+	{ 
+		CPoint( 193, 372 ), 
+		CPoint( 193, 380 ) 
+	},
+	{ 
+		CPoint( 193, 380 ), 
+		CPoint( 193, 381 ) 
+	},
+	{ 
+		CPoint( 193, 381 ), 
+		CPoint( 194, 415 ) 
+	},
+
+	/* Path 23 */
+	{ 
+		CPoint( 276, 439 ), 
+		CPoint( 275, 439 ) 
+	},
+	{ 
+		CPoint( 246, 416 ), 
+		CPoint( 247, 373 ) 
+	},
+
+	/* Path 28 */
+	{ 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ) 
+	},
+	{ 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ) 
+	},
+	{ 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ) 
+	},
+	{ 
+		CPoint( 195, 248 ), 
+		CPoint( 195, 248 ) 
+	},
+	{ 
+		CPoint( 136, 185 ), 
+		CPoint( 135, 185 ) 
+	},
+	{ 
+		CPoint( 134, 188 ), 
+		CPoint( 134, 188 ) 
+	},
+	{ 
+		CPoint( 134, 188 ), 
+		CPoint( 134, 188 ) 
+	},
+	{ 
+		CPoint( 134, 196 ), 
+		CPoint( 134, 196 ) 
+	},
+
+	/* Path 29 */
+	{ 
+		CPoint( 252, 251 ), 
+		CPoint( 252, 251 ) 
+	},
+	{ 
+		CPoint( 308, 198 ), 
+		CPoint( 308, 198 ) 
+	}
+};
+
+//------------------------------
+
+std::vector<std::vector<CPoint>> elipses = {
+
+};
+
+//------------------------------
+
+std::vector<std::vector<CPoint>> arcs = {
+
+};
+
+//------------------------------
+
+if(beziers.size() > 0)
+        for (const auto& vec : beziers) {
+            pDC->PolyBezier(&vec[0], vec.size());
+        }
+
+if(lines.size() > 0)
+        for (const auto& points : lines) {
+            pDC->MoveTo(points[0].x, points[0].y);
+            pDC->LineTo(points[1].x, points[1].y);
+        }
+
+if(elipses.size() > 0)
+        for (const auto& points : elipses) {
+            pDC->Ellipse(points[0].x, points[0].y, points[1].x, points[1].y);
+        }
+
+if (arcs.size() > 0)
+        for (const auto& points : arcs) {
+            if(points[4].x == 1 )
+                pDC->SetArcDirection(AD_CLOCKWISE);
+            else
+                pDC->SetArcDirection(AD_COUNTERCLOCKWISE);
+            pDC->Arc(points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y, points[3].x, points[3].y);
+        }
+
