@@ -45,7 +45,7 @@ def calculate_arc_bbox(rx, ry, rotation, large_arc_flag, sweep_flag, x1, y1,
     return (top_left_x, top_left_y), (bottom_right_x, bottom_right_y)
 
 with open('output.txt', 'w') as file:
-    doc = minidom.parse('owl.svg')
+    doc = minidom.parse('lineart.svg')
 
     paths = doc.getElementsByTagName('path')
 
