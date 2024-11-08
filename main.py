@@ -1,64 +1,37 @@
 from xml.dom import minidom
 from svg.path import parse_path
-import math
 
+# Add this before OnDraw function
+# -------------------------------------
+# enum ShapeType 
+# { 
+# 	BEZIER, 
+# 	LINE 
+# };
 
-def calculate_arc_bbox(rx, ry, rotation, large_arc_flag, sweep_flag, x1, y1,
-                       x2, y2):
-    dx = (x1 - x2) / 2
-    dy = (y1 - y2) / 2
+# struct Shape
+# {
+# 	ShapeType type;
+# 	std::vector<CPoint> points;
 
-    rotation_rad = math.radians(rotation)
+# 	Shape(ShapeType t, std::vector<CPoint> pts) : type(t), points(pts) {}
+# };
+# -------------------------------------
 
-    x1p = math.cos(rotation_rad) * dx + math.sin(rotation_rad) * dy
-    y1p = -math.sin(rotation_rad) * dx + math.cos(rotation_rad) * dy
-
-    rx_sq = rx**2
-    ry_sq = ry**2
-    x1p_sq = x1p**2
-    y1p_sq = y1p**2
-
-    radius_check = x1p_sq / rx_sq + y1p_sq / ry_sq
-    if radius_check > 1:
-        rx *= math.sqrt(radius_check)
-        ry *= math.sqrt(radius_check)
-        rx_sq = rx**2
-        ry_sq = ry**2
-
-    sign = -1 if large_arc_flag == sweep_flag else 1
-    sqrt_term = math.sqrt(
-        abs((rx_sq * ry_sq - rx_sq * y1p_sq - ry_sq * x1p_sq) /
-            (rx_sq * y1p_sq + ry_sq * x1p_sq)))
-    cxp = sign * sqrt_term * (rx * y1p / ry)
-    cyp = sign * sqrt_term * (-ry * x1p / rx)
-
-    cx = math.cos(rotation_rad) * cxp - math.sin(rotation_rad) * cyp + (x1 +
-                                                                        x2) / 2
-    cy = math.sin(rotation_rad) * cxp + math.cos(rotation_rad) * cyp + (y1 +
-                                                                        y2) / 2
-
-    top_left_x = cx - rx
-    top_left_y = cy - ry
-    bottom_right_x = cx + rx
-    bottom_right_y = cy + ry
-
-    return (top_left_x, top_left_y), (bottom_right_x, bottom_right_y)
 
 with open('output.txt', 'w') as file:
     doc = minidom.parse('lineart.svg')
-
     paths = doc.getElementsByTagName('path')
 
+    # Header
     file.write("CPen pen(PS_SOLID, 1, RGB(0, 0, 0));\n")
     file.write("pDC->SelectObject(&pen);\n\n")
-
     file.write("CBrush brush;\n")
     file.write("brush.CreateStockObject(NULL_BRUSH);\n")
     file.write("pDC->SelectObject(&brush);\n")
-
     file.write('\n//'+ '-' * 30 + '\n\n')
 
-    file.write('std::vector<std::vector<CPoint>> beziers = {\n')
+    file.write('std::vector<std::vector<Shape>> paths = {\n')
     first_printed_pair = True
     for ipath, path in enumerate(paths):
         d = path.getAttribute('d')
@@ -66,11 +39,8 @@ with open('output.txt', 'w') as file:
 
         # file.write('Objects:\n' + str(parsed) +'\n')
 
-        if not any(type(obj).__name__ == 'CubicBezier' for obj in parsed):
-            continue
-
         if (first_printed_pair):
-            file.write('\t/* Path {} */\n'.format(ipath))
+            file.write('\t/* Path {} */\n\t{{\n'.format(ipath))
 
         last_end_coords = None
         bracket_open = False
@@ -81,10 +51,23 @@ with open('output.txt', 'w') as file:
             start_coords = f'( {obj.start.real:<2.0f}, {obj.start.imag:<2.0f} )'
             end_coords = f'( {obj.end.real:<2.0f}, {obj.end.imag:<2.0f} )'
 
-            # file.write(f'{type(obj).__name__.ljust(15)} {start_coords} -> {end_coords:}\n')
-
             if obj_type == 'Line' or obj_type == 'Move' or obj_type == 'Arc':
                 last_end_coords = end_coords
+                if obj_type == 'Line':
+
+                    if (first_printed_pair):
+                        first_printed_pair = False
+                        first_printed_title = False
+                    else:
+                        if (first_printed_title):
+                            file.write(',\n\n')
+                            file.write('\t}},\n\t/* Path {} */\n\t{{\n'.format(ipath))
+                            first_printed_title = False
+                        else:
+                            file.write(',\n')
+                    file.write(
+                        f'\tShape(LINE, {{ \n\t\tCPoint{start_coords}, \n\t\tCPoint{end_coords} \n\t}})',
+                        )
 
             if obj_type == 'CubicBezier':
                 if (first_printed_pair):
@@ -94,13 +77,13 @@ with open('output.txt', 'w') as file:
                     if (not bracket_open):
                         if (first_printed_title):
                             file.write(',\n\n')
-                            file.write('\t/* Path {} */\n'.format(ipath))
+                            file.write('\t}},\n\t/* Path {} */\n\t{{\n'.format(ipath))
                             first_printed_title = False
                         else:
                             file.write(',\n')
 
                 if last_end_coords is not None:
-                    file.write(f'\t{{\n \t\tCPoint{last_end_coords},\n')
+                    file.write(f'\tShape(BEZIER, {{\n \t\tCPoint{last_end_coords},\n')
                     last_end_coords = None
                     bracket_open = True
 
@@ -115,48 +98,11 @@ with open('output.txt', 'w') as file:
                         or type(parsed[i + 1]).__name__ == 'Close'
                         or type(parsed[i + 1]).__name__ == 'Arc') and bracket_open:
                     bracket_open = False
-                    file.write('\n\t}',)
+                    file.write('\n\t})',)
                 else:
                     file.write(',')
-    file.write('\n};\n')
-
-    file.write('\n//'+ '-' * 30 + '\n\n')
-
-    file.write('std::vector<std::vector<CPoint>> lines = {\n')
-    first_printed_pair = True
-    for ipath, path in enumerate(paths):
-        d = path.getAttribute('d')
-        parsed = parse_path(d)
-
-        if not any(type(obj).__name__ == 'Line' for obj in parsed):
-            continue
-
-        if (first_printed_pair):
-            file.write('\t/* Path {} */\n'.format(ipath))
-
-        first_printed_title = True
-        for i, obj in enumerate(parsed):
-
-            obj_type = type(obj).__name__
-
-            if obj_type == 'Line':
-
-                start_coords = f'( {obj.start.real:<2.0f}, {obj.start.imag:<2.0f} )'
-                end_coords = f'( {obj.end.real:<2.0f}, {obj.end.imag:<2.0f} )'
-
-                if (first_printed_pair):
-                    first_printed_pair = False
-                    first_printed_title = False
-                else:
-                    if (first_printed_title):
-                        file.write(',\n\n')
-                        file.write('\t/* Path {} */\n'.format(ipath))
-                        first_printed_title = False
-                    else:
-                        file.write(',\n')
-                file.write(
-                    f'\t{{ \n\t\tCPoint{start_coords}, \n\t\tCPoint{end_coords} \n\t}}',
-                    )
+        if(ipath == len(paths) - 1):   
+             file.write('\n\n\t}',)
     file.write('\n};\n')
 
     file.write('\n//'+ '-' * 30 + '\n\n')
@@ -195,84 +141,28 @@ with open('output.txt', 'w') as file:
     file.write('\n};\n')
 
     file.write('\n//'+ '-' * 30 + '\n\n')
-
-    file.write("std::vector<std::vector<CPoint>> arcs = {\n")
-    first_printed_pair = True
-    for ipath, path in enumerate(paths):
-        d = path.getAttribute('d')
-        parsed = parse_path(d)
-
-        if not any(type(obj).__name__ == 'Arc' for obj in parsed):
-            continue
-
-        if (first_printed_pair):
-            file.write('\t/* Path {} */\n'.format(ipath))
-
-        first_printed_title = True
-        for i, obj in enumerate(parsed):
-            obj_type = type(obj).__name__
-
-            if obj_type == 'Arc':
-
-                start_coords = f'( {obj.start.real:<2.0f}, {obj.start.imag:<2.0f} )'
-                end_coords = f'( {obj.end.real:<2.0f}, {obj.end.imag:<2.0f} )'
-
-                rx = obj.radius.real
-                ry = obj.radius.imag
-                rotation = obj.rotation
-                large_arc_flag = obj.arc
-                sweep_flag = obj.sweep
-                x1, y1 = obj.start.real, obj.start.imag
-                x2, y2 = obj.end.real, obj.end.imag
-
-                top_left, bottom_right = calculate_arc_bbox(
-                    rx, ry, rotation, large_arc_flag, sweep_flag, x1, y1, x2, y2)
-
-                top_left_coords = f'( {top_left[0]:<2.0f}, {top_left[1]:<2.0f} )'
-                bottom_right_coords = f'( {bottom_right[0]:<2.0f}, {bottom_right[1]:<2.0f} )'
-
-                rotation = f'( {sweep_flag:<2.0f}, 0 )'
-
-                if (first_printed_pair):
-                    first_printed_pair = False
-                    first_printed_title = False
-                else:
-                    if (first_printed_title):
-                        file.write(',\n')
-                        file.write('\t/* Path {} */\n'.format(ipath))
-                        first_printed_title = False
-                    else:
-                        file.write(',')
-                file.write(
-                    f'\t{{ \n\t\tCPoint{top_left_coords}, \n\t\tCPoint{bottom_right_coords}, \n\t\tCPoint{start_coords}, \n\t\tCPoint{end_coords},  \n\t\tCPoint{rotation} \n\t}}',
-                    )
-    file.write('\n};\n')
-
-    file.write('\n//'+ '-' * 30 + '\n\n')
-
-    file.write("""if(beziers.size() > 0)
-        for (const auto& vec : beziers) {
-            pDC->PolyBezier(&vec[0], vec.size());
-        }\n\n""")
-
-    file.write("""if(lines.size() > 0)
-        for (const auto& points : lines) {
-            pDC->MoveTo(points[0].x, points[0].y);
-            pDC->LineTo(points[1].x, points[1].y);
-        }\n\n""")
+    
+    file.write("""if (!paths.empty()) 
+	for (const auto& path : paths) {  
+		for (const auto& shape : path) {  
+			if (shape.type == BEZIER) {
+				if (!shape.points.empty()) {
+					pDC->PolyBezier(&shape.points[0], shape.points.size());
+				}
+			}
+			else if (shape.type == LINE) {
+				if (shape.points.size() >= 2) {
+					pDC->MoveTo(shape.points[0].x, shape.points[0].y);
+					pDC->LineTo(shape.points[1].x, shape.points[1].y);
+				}
+			}
+		}
+	}\n\n""")
 
     file.write("""if(elipses.size() > 0)
-        for (const auto& points : elipses) {
-            pDC->Ellipse(points[0].x, points[0].y, points[1].x, points[1].y);
-        }\n\n""")
+    for (const auto& points : elipses) {
+        pDC->Ellipse(points[0].x, points[0].y, points[1].x, points[1].y);
+    }\n\n""")
 
-    file.write("""if (arcs.size() > 0)
-        for (const auto& points : arcs) {
-            if(points[4].x == 1 )
-                pDC->SetArcDirection(AD_CLOCKWISE);
-            else
-                pDC->SetArcDirection(AD_COUNTERCLOCKWISE);
-            pDC->Arc(points[0].x, points[0].y, points[1].x, points[1].y, points[2].x, points[2].y, points[3].x, points[3].y);
-        }\n\n""")
 
     doc.unlink()
